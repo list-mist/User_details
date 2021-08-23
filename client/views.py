@@ -19,7 +19,7 @@ def index(request):
             return render(request,"user.html",{"data":data})
     except:
         f=Login()
-        return render(request,'login.html',{"form":f})
+        return render(request,'index.html',{"form":f})
 
 def signUp(request):
     try:
@@ -52,7 +52,7 @@ def after_signup(request):
                         f=Login()
                         msg="Account created successfully"
                         m="Please login to continue"
-                        return render(request,'login.html',{'msg':msg,'form':f,'m':m})
+                        return render(request,'index.html',{'msg':msg,'form':f,'m':m})
                     else:
                         msg="Password do not match"
                         form=Signup()
@@ -74,7 +74,7 @@ def afterlogin(request):
             except:
                 msg="Invalid email or password"
                 form=Login()
-                return render(request,'login.html',{"msg":msg,"form":form})
+                return render(request,'index.html',{"msg":msg,"form":form})
             else:
                 if AddUser.objects.get(email=email).password==password:
                     request.session['email']=email
@@ -82,7 +82,7 @@ def afterlogin(request):
                     return render(request,"user.html",{"data":data})
                 msg="Invalid email or password"
                 form=Login()
-                return render(request,'login.html',{"msg":msg,"form":form})
+                return render(request,'index.html',{"msg":msg,"form":form})
 
 
 class UserAPI(APIView):
